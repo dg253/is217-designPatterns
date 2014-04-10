@@ -1,25 +1,27 @@
 /* 
  * Author: David Garcia
+ * Github: github.com/dg253
  * Date Created: Thursday April 10, 2014 @ 11:14am
  * JS Design Patterns
  */
  
 // A constructor for defining new cars
 function Car( options ) {
- 
-  // some defaults
+  this.make = optins.make || "ferrari"
   this.doors = options.doors || 4;
   this.state = options.state || "brand new";
-  this.color = options.color || "silver";
+  this.color = options.color || "red";
+  this.horsepower = options.horsepower || 500;
  
 }
- 
+
 // A constructor for defining new trucks
-function Truck( options){
- 
-  this.state = options.state || "used";
+function Truck( options ){
+  this.make = optins.make || "ford";
+  this.state = options.state || "new";
   this.wheelSize = options.wheelSize || "large";
   this.color = options.color || "blue";
+  this.horsepower = options.horsepower || 300;
 }
 
  
@@ -28,7 +30,7 @@ function VehicleFactory() {}
  
 // Define the prototypes and utilities for this factory
  
-// Our default vehicleClass is Car. 1st prototype function/
+// Our default vehicleClass is Car. 1st prototype function
 VehicleFactory.prototype.vehicleClass = Car;
  
 // Our Factory method for creating new Vehicle instances. 2nd prototype function
@@ -47,15 +49,17 @@ VehicleFactory.prototype.createVehicle = function ( options ) {
   return new this.vehicleClass( options );
  
 };
- 
+
 // Create an instance of our factory that makes cars
 var carFactory = new VehicleFactory();
 var car = carFactory.createVehicle( {
             vehicleType: "car",
-            color: "yellow",
-            doors: 6 } );
+            make: "infiniti,",
+            doors: 2,
+            state: "used",
+            color: "white",
+            horsepower: 280} );
  
-// Test to confirm our car was created using the vehicleClass/prototype Car
  
 // Outputs: true
 console.log( car instanceof Car );
