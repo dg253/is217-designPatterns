@@ -67,6 +67,10 @@ body {
   padding: 30px;
 }
 
+h2.col-lg-6{
+	color: #333
+}
+
 
 /*
  * Header
