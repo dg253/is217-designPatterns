@@ -17,7 +17,11 @@ function Car( options ) {
   this.state = options.state || "brand new";
   this.color = options.color || "red";
   this.horsepower = options.horsepower || 500;
-  this.cost = function () { return options.cost; };
+  this.cost = options.cost;
+  
+  this.getCost = function(){
+  	return this.cost;
+  }
  
 }
 
@@ -28,30 +32,30 @@ function Truck( options ){
   this.wheelSize = options.wheelSize || "large";
   this.color = options.color || "blue";
   this.horsepower = options.horsepower || 300;
-  this.cost = function () { return options.cost || 300000; };
+  this.cost = options.cost;
 }
 
 //Decorator 1 - 20inch Alloy rim upgrade 
-function rimupgrade(car) {
-  var v = car.cost();
-  car.cost = function() {
-    return v + 1000;
+function rimUpgrade(car) {
+  var v = car.getCost();
+  car.getCost = function() {
+    return v + 5000;
   };
 }
 
 //Decorator 2 - Leather Seats upgrade 
 function leatherSeats(car) {
-  var v = car.cost();
-  car.cost = function() {
+  var v = car.getCost();
+  car.getCost = function() {
     return v + 400;
   };
 }
 
 //Decorator 3 - Engine upgrade
 function engineUpgrade(car) {
-  var v = car.cost();
-  car.cost = function() {
-    return v + 10000;
+  var v = car.getCost();
+  car.getCost = function() {
+    return v + 20000;
   };
 }
 // Define a skeleton vehicle factory
@@ -91,9 +95,20 @@ var car = carFactory.createVehicle( {
             horsepower: 280,
             cost: 40000} );
 
-
 // Outputs: true
 console.log( car instanceof Car );
 
 // Outputs: Car object of color: "white", doors: 2, horsepower: 280...
 console.log( car );
+
+//Outputs: Current Car cost 40,000
+console.log("Base cost is: " + car.getCost());
+
+
+// Outputs: Car cost of 40,000 + Rim upgrade cost 5,000 = 45,000
+rimUpgrade(car);
+console.log("Added rims. Cost is now: " + car.getCost());
+
+//Outputs: Current Car cost 45,000 + leather seat costs 400 = 45,400 
+leatherSeats(car);
+console.log("Added leather seats. Cost is now: " + car.getCost());
